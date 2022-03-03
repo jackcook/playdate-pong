@@ -1,6 +1,3 @@
-import "CoreLibs/graphics"
-import "CoreLibs/sprites"
-
 import "globals"
 
 kPaddleSideLeft = 0
@@ -35,8 +32,6 @@ function Paddle:draw(x, y, width, height)
 end
 
 function Paddle:update()
-	x, y, w, h = self:getBounds()
-	
 	if not self.controllable then
 		return
 	end
@@ -49,7 +44,7 @@ function Paddle:update()
 		self:safeMoveBy(0, kPaddleSpeed)
 	end
 	
-	pos, chg = playdate.getCrankChange()
+	local pos, chg = playdate.getCrankChange()
 	
 	if chg ~= 0 then
 		self:safeMoveBy(0, chg)
@@ -57,7 +52,7 @@ function Paddle:update()
 end
 
 function Paddle:safeMoveBy(x, y)
-	curX, curY, w, h = self:getBounds()
+	local curX, curY, w, h = self:getBounds()
 	
 	if curY + y < kPaddleVerticalMargin then
 		self:moveTo(self.x, kPaddleVerticalMargin + self.length / 2)

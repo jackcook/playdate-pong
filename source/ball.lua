@@ -22,7 +22,7 @@ function Ball:draw(x, y, width, height)
 end
 
 function Ball:update()
-	_, _, collisions, _ = self:moveWithCollisions(self.x + self.xSpeed, self.y + self.ySpeed)
+	local _, _, collisions, _ = self:moveWithCollisions(self.x + self.xSpeed, self.y + self.ySpeed)
 	
 	for i = 1, #collisions do
 		if collisions[i].normal.y ~= 0 then
@@ -41,9 +41,10 @@ function Ball:update()
 		end
 	end
 	
-	int = display.getRect():intersection(self:getBoundsRect())
+	-- If the ball somehow isn't on the screen, reset
+	local intRect = display.getRect():intersection(self:getBoundsRect())
 	
-	if int.width == 0 or int.height == 0 then
+	if intRect.width == 0 or intRect.height == 0 then
 		self:reset()
 	end
 end
