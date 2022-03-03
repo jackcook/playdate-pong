@@ -1,7 +1,5 @@
-import "CoreLibs/graphics"
-import "CoreLibs/sprites"
-
 import "globals"
+import "sound"
 
 class("Ball").extends(gfx.sprite)
 
@@ -36,7 +34,10 @@ function Ball:update()
 		end
 		
 		if collisions[i].other:getTag() == kLeftWallTag or collisions[i].other:getTag() == kRightWallTag then
+			playSound(kSoundFail)
 			self:reset()
+		else
+			playSound(kSoundBounce)
 		end
 	end
 	
